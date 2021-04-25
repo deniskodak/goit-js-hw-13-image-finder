@@ -31,7 +31,7 @@ class Images {
 
   addObserver() {
     const observerOptions = {
-      rootMargin: '10px',
+      rootMargin: '100px',
     };
     
     const observerHandler = entries => {
