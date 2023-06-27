@@ -1,21 +1,26 @@
+const path = require('path')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
-const WebpackBar = require('webpackbar');
-const paths = require('../utils/paths');
 
 module.exports = env => ({
   mode: env.mode,
-  context: paths.SRC_DIR,
-  entry: './index.js',
+  entry: path.join(__dirname, '../../src/index.js'),
   output: {
-    path: paths.BUILD_DIR,
+    path: path.join(__dirname, '../../dist'),
   },
   module: {
     rules: [
       {
-        test: /\.js$/,
-        include: paths.SRC_DIR,
-        use: ['babel-loader'],
+        test: /\.(ts|js)?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+              presets: [
+                  '@babel/preset-env',
+                  '@babel/preset-typescript',
+              ],
+          },
+      },
       },
       {
         test: /\.(gif|png|jpe?g|svg)$/i,
@@ -67,9 +72,18 @@ module.exports = env => ({
       },
     ],
   },
+  resolve: {
+    alias: {
+      Js: path.resolve(__dirname, '../../src/js/'),
+      Styles: path.resolve(__dirname, '../../src/css'),
+      Templates: path.resolve(__dirname, '../../src/templates'),
+      Node_modules: path.resolve(__dirname, '../../src/node_modules'),
+    },
+    extensions: ['.ts', '.js', '.css'],
+    modules: ['node_modules']
+  },
   plugins: [
     new CleanWebpackPlugin(),
-    new FriendlyErrorsWebpackPlugin(),
-    new WebpackBar(),
   ],
+  
 });

@@ -1,6 +1,7 @@
 const { merge } = require('webpack-merge');
 const loadSharedConfig = require('./configs/shared');
 
-const loadModeConfig = env => require(`./configs/${env.mode}`)(env);
+const loadModeConfig = mode => require(`./configs/${mode}`)(mode);
 
-module.exports = env => merge(loadSharedConfig(env), loadModeConfig(env));
+module.exports = (env, arg) =>
+  merge(loadSharedConfig(arg.mode), loadModeConfig(arg.mode));

@@ -1,38 +1,42 @@
+const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const paths = require('../utils/paths');
 
 module.exports = env => ({
-  devtool: 'cheap-eval-source-map',
   output: {
+    path: path.join(__dirname, '../../dist'),
     filename: '[name].js',
+    publicPath: 'http://localhost:8002/',
   },
   module: {
     rules: [
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader', 'postcss-loader'],
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.scss$/,
-        use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
+        use: ['style-loader', 'css-loader'],
       },
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './index.html',
+      template: path.resolve(__dirname, '../../src/index.html'),
+      minify: false,
     }),
   ],
+  devtool: 'inline-source-map',
   devServer: {
-    contentBase: paths.BUILD_DIR,
-    publicPath: '',
-    historyApiFallback: true,
-    compress: true,
-    port: 4040,
-    noInfo: true,
-    quiet: true,
-    clientLogLevel: 'warning',
-    stats: 'errors-only',
-    open: true,
+    port: 8002,
+    static: {
+      directory: path.resolve(__dirname, '../../dist'),
+    },
+    historyApiFallback: {
+      index: 'index.html',
+    },
+    devMiddleware: {
+      index: 'index.html',
+      writeToDisk: true,
+    },
   },
 });

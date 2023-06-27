@@ -1,115 +1,16 @@
-.material-icons.lightblue {
-  color: #76a5eb;
-}
-.material-icons.powderblue {
-  color: rgb(125, 205, 216);
-}
-.material-icons.skyblue {
-  color: rgb(135, 201, 228);
-}
-.material-icons.rgb {
-  color: rgb(178, 228, 248);
-}
-
 *,
 ::after,
 ::before {
   box-sizing: inherit;
 }
 
-img {
-  display: block;
-  max-width: 100%;
-  width: 100%;
-  height: auto;
-}
-
-.gallery {
-  margin: -15px;
-  display: flex;
-  flex-wrap: wrap;
-
-  list-style: none;
-}
-
-.gallery__item {
-  margin: 15px;
-  width: calc((100% - 15px * 6) / 3);
-  height: 400px;
-
-  box-shadow: 2px 4px 10px -4px #000000;
-}
-.image {
-  max-height: 310px;
-}
-
-.stats {
-  display: flex;
-  justify-content: space-around;
-}
-
-.stats-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
-
-.stats-item > .material-icons {
-  letter-spacing: 0.2em;
-}
-
-/* Form styles */
-.search-form {
-  padding: 50px;
-}
-
-#search-input {
-  margin-right: 20px;
-
-  padding: 10px 5px;
-
-  border-color: #edeac4;
-  border-radius: 15px;
-  border-width: 4px;
-
-  transition: 300ms ease-out;
-
-  outline: none;
-}
-
-#search-input::placeholder {
-  font-weight: 500;
-}
-
-#search-input:hover,
-#search-input:focus {
-  border-color: rgb(223 217 138);
-  box-shadow: #fff 0 -1px 56px, #ff0 0 -2px 23px, #ff8000 0 -10px 5px,
-    red 0 -3px 21px, -5px 4px 0px 2px rgb(0 0 0 / 0%);
-}
-
-.submit-btn {
-  padding: 10px 5px;
-
-  font-weight: 600;
-  color: rgb(124, 196, 255);
-  background-color: transparent;
-
-  border-radius: 15px;
-  border-width: 4px;
-  border-color: rgb(124, 196, 255);
-
-  transition: 300ms ease-out;
-
-  outline: none;
-}
-
-.submit-btn:hover,
-.submit-btn:focus {
-  background-color: rgb(124, 196, 255);
-  color: #fff;
-  border-color: #fff;
-
-  box-shadow: #fff 0 -1px 56px, #76a5eb 0 -2px 23px, #8fcedd 0 -10px 5px,
-    rgb(124 196 255) 0 -3px 21px, -5px 4px 0px 2px rgb(0 0 0 / 0%);
+.section h1,
+.section h2 {
+  padding: 1.5rem;
+  margin: 0 0 1.5rem;
+  font-family: 'Leckerli One', cursive;
+  color: #000;
+  font-size: 3rem;
+  text-shadow: 0 2px rgba(0, 0, 0, 0.5);
+  text-align: center;
 }

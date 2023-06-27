@@ -1,50 +1,30 @@
-import { debounce } from 'lodash.debounce';
-import fetchApi from '../apiService';
-import { searchFormRef } from '../utils/refs';
-import imagesListTpl from '../../templates/imagesListTpl.hbs'
+import imagesListTpl from 'Templates/imagesListTpl.hbs';
+import LightBox from 'Js/lightbox';
 
-
-
-import * as basicLightbox from 'basiclightbox';
-import '../../../node_modules/basiclightbox/dist/basicLightbox.min.css';
-
-import { alert, defaultModules, notice } from '../../../node_modules/@pnotify/core/dist/PNotify.js';
-import * as PNotifyMobile from '../../../node_modules/@pnotify/mobile/dist/PNotifyMobile.js';
-import '@pnotify/core/dist/PNotify.css';
-import '@pnotify/mobile/dist/PNotifyMobile.css';
-import { error } from '@pnotify/core';
-import pnotifyMessage from '../utils/pnotifyFn';
-import '@pnotify/core/dist/BrightTheme.css';
-defaultModules.set(PNotifyMobile, {});
-
+import './index.css'
 
 class Images {
-  constructor(selector) {
+  constructor(selector, observerCallback) {
     this.element = document.querySelector(selector);
-    this.images = [];
-    this.searchQuery = '';
-    this.page = 0;
-    this.check = false;
-
-    this.height = '';
+    this.observer = false;
+    this.listener = false;
+    this.height = 0;
+    this.observerCallback = observerCallback
   }
 
   addObserver() {
+    if (this.observer) return;
+
     const observerOptions = {
       rootMargin: '100px',
     };
-    
-    const observerHandler = entries => {
 
+    const observerHandler = entries => {
       if (entries[0].isIntersecting) {
-        this.page += 1;
-        
         this.height = document.body.clientHeight;
-        this.loadMore(this.page, this.searchQuery);
-        
+        this.observerCallback()
       }
-      
-      
+
       window.scrollTo({
         top: this.height,
         left: 0,
@@ -54,90 +34,43 @@ class Images {
 
     const observer = new IntersectionObserver(observerHandler, observerOptions);
     const observerElement = document.createElement('div');
-    
-    this.element.insertAdjacentElement('afterend', observerElement);
-    
+
+    this.element?.insertAdjacentElement('afterend', observerElement);
+
     observer.observe(observerElement);
+    this.observer = true;
   }
 
-  renderImages() {
-    const imagesList = imagesListTpl(this.images);
-    
-    this.element.innerHTML = imagesList;
+  renderImages(images) {
+    const imagesList = imagesListTpl(images);
+
+    if (this.element) this.element.innerHTML = imagesList;
   }
 
-  async searchImages(query, page = 1) {
-    this.page = page;
-    this.searchQuery = query;
-    this.images = [];
-    
-    await this.fetchImages(this.page, this.searchQuery);
-    
-    if (!this.check) {
-      this.init();
+  extendImages(images) {
+    this.element?.insertAdjacentHTML('beforeend', imagesListTpl(images));
+  }
+
+  onImageClick(e) {
+    if (!e.target) return;
+
+    if (e.target.nodeName === 'IMG') {
+      const src = e.target.dataset.src;
+      const lb = new LightBox();
+      lb.addSource(src).open();
     }
   }
 
-  async fetchImages(page, query = '') {
-    this.searchQuery = query;
-
-    try {
-      const { hits } = await fetchApi.searchImages(query, page);
-      
-      this.images = [...hits];
-      this.renderImages();
-
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  async loadMore(page, query = '') {
-    try {
-      const { hits } = await fetchApi.searchImages(query, page);
-      this.element.insertAdjacentHTML('beforeend', imagesListTpl(hits));
-      
-    }
-    catch (error) {
-      console.log(error)
-    }
+  initListener() {
+    if (this.listener || !this.element) return;
+    this.element.addEventListener('click', this.onImageClick);
+    this.listener = true;
   }
 
   init() {
-    this.check = true;
+    this.initListener();
     this.addObserver();
   }
 }
 
-const images = new Images('.gallery');
-
-const showBigImage = (e) => {
-  if (e.target.nodeName === 'IMG') {
-    const src = e.target.dataset.src;
-    
-    const instance = basicLightbox.create(`
-    <img src="${src}" width="800" height="600">`);
-
-    instance.show();
-  }
-}
-
-const searchHandler = (e) => {
-  e.preventDefault();
-
-  const { name, value } = e.target[0];
-
-  if (name === 'query') {
-
-    if (value.trim()== null || value.trim() == "" || value === " ") {
-      return pnotifyMessage(error, 'Недопустимые символы для поиска изображеий :(');
-    }
-    
-    return images.searchImages(value);
-    
-  }
-}
-
-images.element.addEventListener('click', showBigImage);
-
-searchFormRef.addEventListener('submit', searchHandler);
+export default Images;

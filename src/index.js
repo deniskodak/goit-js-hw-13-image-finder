@@ -1,5 +1,6 @@
+import 'Styles/style.css';
+import Render from 'Js/index.js';
 
-import './css/style.css';
-import images from './js/images/index';
-import 'material-design-icons/iconfont/material-icons.css';
+const render = new Render('.gallery', '.form-wrapper')
 
+render.init()
