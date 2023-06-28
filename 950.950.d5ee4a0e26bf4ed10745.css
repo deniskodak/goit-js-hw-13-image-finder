@@ -1,25 +1,3 @@
-@font-face{
-  font-family: "Leckerli One";
-  src: url(2b3dc43d08d956de9c3a.ttf) format("truetype");
-}
-
-*,
-::after,
-::before {
-  box-sizing: inherit;
-}
-
-.section h1,
-.section h2 {
-  padding: 1.5rem;
-  margin: 0 0 1.5rem;
-  font-family: 'Leckerli One', cursive;
-  color: #000;
-  font-size: 3rem;
-  text-shadow: 0 2px rgba(0, 0, 0, 0.5);
-  text-align: center;
-}
-
 .ncf-container {
   font-size: 14px;
   box-sizing: border-box;
@@ -374,4 +352,4 @@ figure:hover img {
 }
 
 
-/*# sourceMappingURL=348.348.5e549f4cb1358d41a49a.css.map*/
+/*# sourceMappingURL=950.950.d5ee4a0e26bf4ed10745.css.map*/
