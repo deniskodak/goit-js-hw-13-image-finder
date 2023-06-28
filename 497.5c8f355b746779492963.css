@@ -1,25 +1,3 @@
-@font-face{
-  font-family: "Leckerli One";
-  src: url(https://deniskodak.github.io/js-image-finder/2b3dc43d08d956de9c3a.ttf) format("truetype");
-}
-
-*,
-::after,
-::before {
-  box-sizing: inherit;
-}
-
-.section h1,
-.section h2 {
-  padding: 1.5rem;
-  margin: 0 0 1.5rem;
-  font-family: 'Leckerli One', cursive;
-  color: #000;
-  font-size: 3rem;
-  text-shadow: 0 2px rgba(0, 0, 0, 0.5);
-  text-align: center;
-}
-
 .ncf-container {
   font-size: 14px;
   box-sizing: border-box;
@@ -373,5 +351,3 @@ figure:hover img {
   }
 }
 
-
-/*# sourceMappingURL=main.95e5efd674ffc72e3314.css.map*/
