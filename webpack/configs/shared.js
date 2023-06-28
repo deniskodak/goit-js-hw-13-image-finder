@@ -78,12 +78,10 @@ module.exports = env => ({
       shared: {
         ...dependencies,
         react: {
-          requiredVersion: dependencies.react,
           singleton: true,
         },
         'react-dom': {
           singleton: true,
-          requiredVersion: dependencies['react-dom'],
         },
       },
     }),
