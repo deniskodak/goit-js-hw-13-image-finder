@@ -1,7 +1,7 @@
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { ModuleFederationPlugin } = require('webpack').container;
-const { dependencies } = require(path.join(__dirname, '../../package.json'))
+const { dependencies } = require(path.join(__dirname, '../../package.json'));
 
 module.exports = env => ({
   mode: env.mode,
@@ -75,9 +75,17 @@ module.exports = env => ({
       exposes: {
         './ImageFinder': './src/js/index.js',
       },
-      // shared: {
-        // ...dependencies,
-      // },
+      shared: {
+        ...dependencies,
+        react: {
+          requiredVersion: dependencies.react,
+          singleton: true,
+        },
+        'react-dom': {
+          singleton: true,
+          requiredVersion: dependencies['react-dom'],
+        },
+      },
     }),
   ],
 });
