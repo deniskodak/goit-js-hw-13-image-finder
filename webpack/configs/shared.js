@@ -73,7 +73,7 @@ module.exports = env => ({
       name: 'ImageFinderApp',
       filename: 'remoteEntry.js',
       exposes: {
-        './ImageFinder': './src/index.js',
+        './ImageFinder': './src/js/index.js',
       },
       shared: {
         ...dependencies,

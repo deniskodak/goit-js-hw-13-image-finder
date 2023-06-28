@@ -16,16 +16,16 @@ class Images {
     if (this.observer) return;
 
     const observerOptions = {
-      rootMargin: '100px',
+      rootMargin: '30px',
     };
 
     const observerHandler = entries => {
       if (entries[0].isIntersecting) {
-        this.height = document.body.clientHeight;
+        this.height = this.element.clientHeight;
         this.observerCallback()
       }
 
-      window.scrollTo({
+      this.element.scrollTo({
         top: this.height,
         left: 0,
         behavior: 'smooth',
@@ -34,10 +34,8 @@ class Images {
 
     const observer = new IntersectionObserver(observerHandler, observerOptions);
     const observerElement = document.createElement('div');
-    const arrowGoUp = document.createElement('div')
 
     this.element?.insertAdjacentElement('afterend', observerElement);
-    this.element?.insertAdjacentElement('afterend', arrowGoUp);
 
     observer.observe(observerElement);
     this.observer = true;
