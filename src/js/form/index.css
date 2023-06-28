@@ -15,7 +15,13 @@
 }
 
 .c-checkbox:checked + .c-formContainer .c-form {
-  width: 37.5em;
+  width: 80vw;
+}
+
+@media screen and (min-width: 768px) {
+  .c-checkbox:checked + .c-formContainer .c-form {
+    width: 37.5em;
+  }
 }
 
 .c-checkbox:checked + .c-formContainer .c-form__toggle {
@@ -41,6 +47,7 @@
 
 .c-formContainer {
   position: relative;
+  left: 50%;
   font-weight: 700;
 }
 
@@ -54,7 +61,7 @@
 
 .c-form {
   font-family: var(--form-family);
-  left: 1.5rem;
+  transform: translateX(-50%);
   padding: 0.625em;
   box-sizing: border-box;
   box-shadow: var(--form-box-shadow);
@@ -134,6 +141,7 @@
 }
 .c-form__button {
   color: var(--form-button-bg);
+  cursor: pointer;
   padding: 0;
   height: 100%;
   width: 5em;

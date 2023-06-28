@@ -3,8 +3,8 @@ import { createErrorNotification } from 'Js/notification';
 import './index.css';
 
 class Form {
-  constructor(parentSelector = '') {
-    this.parent = document.querySelector(parentSelector);
+  constructor(parentElement) {
+    this.parent = parentElement;
     this.search = '';
     this.listener = false;
   }

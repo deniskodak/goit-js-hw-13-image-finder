@@ -1,5 +1,7 @@
-const path = require('path')
+const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { ModuleFederationPlugin } = require('webpack').container;
+const { dependencies } = require(path.join(__dirname, '../../package.json'))
 
 module.exports = env => ({
   mode: env.mode,
@@ -10,17 +12,14 @@ module.exports = env => ({
   module: {
     rules: [
       {
-        test: /\.(ts|js)?$/,
+        test: /\.(js)?$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
           options: {
-              presets: [
-                  '@babel/preset-env',
-                  '@babel/preset-typescript',
-              ],
+            presets: ['@babel/preset-env'],
           },
-      },
+        },
       },
       {
         test: /\.(gif|png|jpe?g|svg)$/i,
@@ -34,20 +33,6 @@ module.exports = env => ({
             },
           },
           'img-loader',
-        ],
-      },
-      {
-        test: /\.woff(2)?(\?[a-z0-9#=&.]+)?$/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              name: '[name].[ext]',
-              outputPath: 'fonts/',
-              limit: 10000,
-              mimetype: 'application/font-woff',
-            },
-          },
         ],
       },
       {
@@ -79,11 +64,20 @@ module.exports = env => ({
       Templates: path.resolve(__dirname, '../../src/templates'),
       Node_modules: path.resolve(__dirname, '../../src/node_modules'),
     },
-    extensions: ['.ts', '.js', '.css'],
-    modules: ['node_modules']
+    extensions: ['.js', '.css'],
+    modules: ['node_modules'],
   },
   plugins: [
     new CleanWebpackPlugin(),
+    new ModuleFederationPlugin({
+      name: 'ImageFinderApp',
+      filename: 'remoteEntry.js',
+      exposes: {
+        './ImageFinder': './src/index.js',
+      },
+      shared: {
+        ...dependencies,
+      },
+    }),
   ],
-  
 });

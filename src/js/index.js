@@ -3,18 +3,18 @@ import Form from './form';
 import Images from './images';
 
 class Render {
-  constructor(parentImageSelector, parentFormSelector) {
+  constructor(parentImageElement, parentFormElement) {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleLoadMore = this.handleLoadMore.bind(this);
-    this.form = new Form(parentFormSelector);
-    this.images = new Images(parentImageSelector, this.handleLoadMore);
+    this.form = new Form(parentFormElement);
+    this.images = new Images(parentImageElement, this.handleLoadMore);
     this.api = new Api();
   }
 
   async handleSubmit() {
     this.api.page = 1;
     this.api.query = this.form.search;
-
+    this.images.init();
     this.updateImages();
     this.updateForm();
   }
@@ -38,7 +38,6 @@ class Render {
   init() {
     this.form.renderForm();
     this.form.initListener(this.handleSubmit);
-    this.images.init();
   }
 }
 

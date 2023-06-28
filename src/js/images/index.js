@@ -4,8 +4,8 @@ import LightBox from 'Js/lightbox';
 import './index.css'
 
 class Images {
-  constructor(selector, observerCallback) {
-    this.element = document.querySelector(selector);
+  constructor(parentElement, observerCallback) {
+    this.element = parentElement;
     this.observer = false;
     this.listener = false;
     this.height = 0;
@@ -34,8 +34,10 @@ class Images {
 
     const observer = new IntersectionObserver(observerHandler, observerOptions);
     const observerElement = document.createElement('div');
+    const arrowGoUp = document.createElement('div')
 
     this.element?.insertAdjacentElement('afterend', observerElement);
+    this.element?.insertAdjacentElement('afterend', arrowGoUp);
 
     observer.observe(observerElement);
     this.observer = true;
