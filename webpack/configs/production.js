@@ -6,6 +6,7 @@ module.exports = env => ({
   output: {
     filename: '[name].[contenthash].js',
   },
+  publicPath: 'https://deniskodak.github.io/js-image-finder/',
   optimization: {
     moduleIds: 'deterministic',
     runtimeChunk: 'single',
