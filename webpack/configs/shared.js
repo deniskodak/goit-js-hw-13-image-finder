@@ -75,9 +75,9 @@ module.exports = env => ({
       exposes: {
         './ImageFinder': './src/js/index.js',
       },
-      shared: {
-        ...dependencies,
-      },
+      // shared: {
+        // ...dependencies,
+      // },
     }),
   ],
 });
