@@ -3,6 +3,11 @@
   src: url("../font/LeckerliOne-Regular.ttf") format("truetype");
 }
 
+body {
+  overflow: hidden;
+  overflow-y: auto;
+}
+
 *,
 ::after,
 ::before {

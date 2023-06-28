@@ -1,7 +1,7 @@
 import imagesListTpl from 'Templates/imagesListTpl.hbs';
 import LightBox from 'Js/lightbox';
 
-import './index.css'
+import './index.css';
 
 class Images {
   constructor(parentElement, observerCallback) {
@@ -9,7 +9,7 @@ class Images {
     this.observer = false;
     this.listener = false;
     this.height = 0;
-    this.observerCallback = observerCallback
+    this.observerCallback = observerCallback;
   }
 
   addObserver() {
@@ -22,7 +22,7 @@ class Images {
     const observerHandler = entries => {
       if (entries[0].isIntersecting) {
         this.height = this.element.clientHeight;
-        this.observerCallback()
+        this.observerCallback();
       }
 
       this.element.scrollTo({
